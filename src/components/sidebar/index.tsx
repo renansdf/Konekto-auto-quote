@@ -1,37 +1,60 @@
 import React from 'react';
+import { useQuoteData } from '../../hooks/quoteData';
+import formatNumber from '../../helpers/numberFormat';
+
 import { Container, QuoteCalculator, QuotedServices } from './styles';
 
-const Sidebar: React.FC = () => (
-  <Container>
-    <h1>Seu Pedido</h1>
+const Sidebar: React.FC = () => {
+  const { serviceData, totalCost } = useQuoteData();
 
-    <QuotedServices>
-      <div>
-        <span>serviço</span>
-        <strong>Tradução</strong>
-      </div>
+  return (
+    <Container>
+      <h1>Seu Pedido</h1>
 
-      <div>
-        <span>lingua fonte</span>
-        <strong>Português</strong>
-      </div>
+      {serviceData && (
+        <QuotedServices>
 
-      <div>
-        <span>lingua final</span>
-        <strong>Inglês</strong>
-      </div>
+          {serviceData.numberOfWords && (
+            <div>
+              <span>palavras</span>
+              <strong>{formatNumber(serviceData.numberOfWords)}</strong>
+            </div>
+          )}
 
-      <div>
-        <span>qualidade</span>
-        <strong>Básico</strong>
-      </div>
-    </QuotedServices>
+          {serviceData.service && (
+            <div>
+              <span>serviço</span>
+              <strong>{serviceData.service}</strong>
+            </div>
+          )}
 
-    <QuoteCalculator>
-      <span>custo total:</span>
-      <strong>R$1000</strong>
-    </QuoteCalculator>
-  </Container>
-);
+          {serviceData.languageMatrix && (
+            <div>
+              <span>lingua fonte</span>
+              <strong>{serviceData.languageMatrix}</strong>
+            </div>
+          )}
+
+          {serviceData.languageFinal && (
+            <div>
+              <span>lingua final</span>
+              <strong>{serviceData.languageFinal}</strong>
+            </div>
+          )}
+        </QuotedServices>
+      )}
+
+      {totalCost && (
+        <QuoteCalculator>
+          <span>custo total:</span>
+          <strong>
+            R$
+            {totalCost}
+          </strong>
+        </QuoteCalculator>
+      )}
+    </Container>
+  );
+};
 
 export default Sidebar;

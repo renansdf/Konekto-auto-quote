@@ -5,10 +5,10 @@ export const Container = styled.div`
   min-height: 100vh;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
 
-  form{
+  section{
     width: 100%;
     max-width: 500px;
   }
@@ -24,12 +24,12 @@ export const Container = styled.div`
     margin: 0 auto 20px;
   }
 
-  div + div{
+  section + section{
     margin-top: 40px;
   }
 `;
 
-export const FormSection = styled.div`
+export const FormSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;

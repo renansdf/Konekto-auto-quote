@@ -1,49 +1,34 @@
-import React from 'react';
-import { Container, FormSection, SectionButton } from './styles';
+import React, { useState } from 'react';
+import FormPersonalData from '../FormPersonalData';
+import FormServiceData from '../FormServiceData';
+import { Container } from './styles';
 
-const Quote: React.FC = () => (
-  <Container>
-    <form>
-      <h1>Solicitar Orçamento</h1>
-      <p>Preencha o formulário abaixo para solicitar um orçamento</p>
-      <FormSection>
-        <input placeholder="Nome" />
-        <input placeholder="Telefone" />
-        <input placeholder="E-mail" />
-        <input placeholder="Empresa" />
-        <input placeholder="CNPJ / CPF" />
+const Quote: React.FC = () => {
+  const [personalVisibility, setPersonalVisibility] = useState(true);
+  const [serviceVisibility, setServiceVisibility] = useState(false);
 
-        <SectionButton>Próximo: arquivo</SectionButton>
-      </FormSection>
+  const hideAndShow = (toHide: Function, toShow: Function) => {
+    toHide(false); toShow(true);
+  };
 
-      <FormSection>
-        <input placeholder="Número de palavras" type="number" />
+  return (
+    <Container>
+      <section>
+        <h1>Solicitar Orçamento</h1>
+        <p>Preencha o formulário abaixo para solicitar um orçamento</p>
 
-        <select>
-          <option value="">Selecione o serviço</option>
-          <option value="traducao">Tradução</option>
-          <option value="legenda">Legenda</option>
-          <option value="revisao">Revisão</option>
-          <option value="transcricao">Transcrição</option>
-          <option value="traducao-juramentada">Tradução Juramentada</option>
-        </select>
+        <FormPersonalData
+          isVisible={!!personalVisibility}
+          toggleVisibility={() => hideAndShow(setPersonalVisibility, setServiceVisibility)}
+        />
 
-        <select>
-          <option value="">Lingua fonte</option>
-          <option value="pt-BR">Português</option>
-          <option value="en-US">Inglês</option>
-        </select>
-
-        <select>
-          <option value="">Lingua final</option>
-          <option value="pt-BR">Português</option>
-          <option value="en-US">Inglês</option>
-        </select>
-
-        <SectionButton>Próximo: opções adicionais</SectionButton>
-      </FormSection>
-    </form>
-  </Container>
-);
+        <FormServiceData
+          isVisible={!!serviceVisibility}
+          toggleVisibility={() => hideAndShow(setServiceVisibility, setPersonalVisibility)}
+        />
+      </section>
+    </Container>
+  );
+};
 
 export default Quote;

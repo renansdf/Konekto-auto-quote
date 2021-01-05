@@ -5,7 +5,7 @@ import formatNumber from '../../helpers/numberFormat';
 import { Container, QuoteCalculator, QuotedServices } from './styles';
 
 const Sidebar: React.FC = () => {
-  const { serviceData, totalCost } = useQuoteData();
+  const { serviceData, serviceTotals } = useQuoteData();
 
   return (
     <Container>
@@ -18,13 +18,6 @@ const Sidebar: React.FC = () => {
             <div>
               <span>palavras</span>
               <strong>{formatNumber(serviceData.numberOfWords)}</strong>
-            </div>
-          )}
-
-          {serviceData.service && (
-            <div>
-              <span>serviço</span>
-              <strong>{serviceData.service}</strong>
             </div>
           )}
 
@@ -41,15 +34,33 @@ const Sidebar: React.FC = () => {
               <strong>{serviceData.languageFinal}</strong>
             </div>
           )}
+
+          {serviceData.service && (
+            <div>
+              <span>serviço</span>
+              <strong>{serviceData.service}</strong>
+            </div>
+          )}
         </QuotedServices>
       )}
 
-      {totalCost && (
+      {serviceTotals?.totalCost && (
         <QuoteCalculator>
           <span>custo total:</span>
           <strong>
             R$
-            {totalCost}
+            {serviceTotals.totalCost && formatNumber(serviceTotals.totalCost)}
+          </strong>
+        </QuoteCalculator>
+      )}
+
+      {serviceTotals?.totalTime && (
+        <QuoteCalculator>
+          <span>prazo estimado:</span>
+          <strong>
+            {serviceTotals.totalTime}
+            {' '}
+            dias
           </strong>
         </QuoteCalculator>
       )}

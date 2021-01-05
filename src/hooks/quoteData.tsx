@@ -7,8 +7,8 @@ interface IQuoteContext {
   setPersonalData: (data: IPersonalData) => void;
   setServiceData: (data: IServiceData) => void;
 
-  totalCost: number | undefined;
-  setTotalCost: (value: number) => void;
+  serviceTotals: IServiceTotals | undefined;
+  setServiceTotals: (totals: IServiceTotals) => void;
 }
 
 interface IPersonalData {
@@ -26,12 +26,17 @@ interface IServiceData {
   numberOfWords: number;
 }
 
+interface IServiceTotals {
+  totalCost: number | undefined;
+  totalTime: number | undefined;
+}
+
 const QuoteContext = createContext<IQuoteContext>({} as IQuoteContext);
 
 const QuoteProvider: React.FC = ({ children }) => {
   const [personalData, setPersonalData] = useState<IPersonalData>();
   const [serviceData, setServiceData] = useState<IServiceData>();
-  const [totalCost, setTotalCost] = useState<number>();
+  const [serviceTotals, setServiceTotals] = useState<IServiceTotals>();
 
   return (
     <QuoteContext.Provider value={{
@@ -39,8 +44,8 @@ const QuoteProvider: React.FC = ({ children }) => {
       personalData,
       setServiceData,
       serviceData,
-      setTotalCost,
-      totalCost,
+      setServiceTotals,
+      serviceTotals,
     }}
     >
       {children}

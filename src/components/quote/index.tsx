@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import FormPersonalData from '../FormPersonalData';
+import FormLanguageData from '../FormLanguageData';
 import FormServiceData from '../FormServiceData';
+import FormPersonalData from '../FormPersonalData';
 import { Container } from './styles';
 
 const Quote: React.FC = () => {
-  const [personalVisibility, setPersonalVisibility] = useState(true);
+  const [languageVisibility, setLanguageVisibility] = useState(true);
   const [serviceVisibility, setServiceVisibility] = useState(false);
+  const [personalVisibility, setPersonalVisibility] = useState(false);
 
   const hideAndShow = (toHide: Function, toShow: Function) => {
     toHide(false); toShow(true);
@@ -17,14 +19,19 @@ const Quote: React.FC = () => {
         <h1>Solicitar Orçamento</h1>
         <p>Preencha o formulário abaixo para solicitar um orçamento</p>
 
-        <FormPersonalData
-          isVisible={!!personalVisibility}
-          toggleVisibility={() => hideAndShow(setPersonalVisibility, setServiceVisibility)}
+        <FormLanguageData
+          isVisible={!!languageVisibility}
+          toggleVisibility={() => hideAndShow(setLanguageVisibility, setServiceVisibility)}
         />
 
         <FormServiceData
           isVisible={!!serviceVisibility}
           toggleVisibility={() => hideAndShow(setServiceVisibility, setPersonalVisibility)}
+        />
+
+        <FormPersonalData
+          isVisible={!!personalVisibility}
+          toggleVisibility={() => hideAndShow(setPersonalVisibility, setServiceVisibility)}
         />
       </section>
     </Container>

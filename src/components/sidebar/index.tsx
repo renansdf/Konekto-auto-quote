@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuoteData } from '../../hooks/quoteData';
-import formatNumber from '../../helpers/numberFormat';
+import { formatNumber, formatCurrency } from '../../helpers/numberFormat';
 
 import { Container, QuoteCalculator, QuotedServices } from './styles';
 
@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
           <span>custo total:</span>
           <strong>
             R$
-            {serviceTotals.totalCost && formatNumber(serviceTotals.totalCost)}
+            {serviceTotals.totalCost && formatCurrency(serviceTotals.totalCost)}
           </strong>
         </QuoteCalculator>
       )}

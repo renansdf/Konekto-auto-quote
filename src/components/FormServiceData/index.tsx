@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+import React, { useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
-import Input from '../Input';
 import Select from '../Select';
-import { FormContainer, SectionButton } from '../../styles/AppStyles';
 import { useQuoteData } from '../../hooks/quoteData';
-import calculateCost from '../../helpers/quoteHelper';
+import { FormContainer } from '../../styles/AppStyles';
+
+import ServiceOptions from '../ServiceOptions';
 
 interface IServiceFormProps {
   isVisible: boolean;
@@ -14,60 +16,84 @@ interface IServiceFormProps {
 
 interface SubmittedData {
   service: 'humanTranslation' | 'simpleRevision';
-  languageMatrix: string;
-  languageFinal: string;
-  numberOfWords: number;
 }
 
+interface IServiceData {
+  name: string;
+  value: 'machineTranslation' | 'humanTranslation' | 'technicalTranslation' | 'simpleRevision' | 'technicalRevision';
+  isSelected?: boolean;
+}
+
+interface IAllServices {
+  [key: string]: IServiceData[];
+}
+
+const allServices: IAllServices = {
+  traducao: [
+    { name: 'Machine Translation', value: 'machineTranslation' },
+    { name: 'Human Translation', value: 'humanTranslation' },
+    { name: 'Technical Translation', value: 'technicalTranslation' },
+  ],
+  revisao: [
+    { name: 'Simple Revision', value: 'simpleRevision' },
+    { name: 'Technical Revision', value: 'technicalRevision' },
+  ],
+};
+
 const FormServiceData: React.FC<IServiceFormProps> = ({ isVisible }) => {
-  const { setServiceData, setTotalCost } = useQuoteData();
+  const [
+    currentService,
+    setCurrentService,
+  ] = useState<IServiceData[]>();
+  const {
+    setServiceData,
+    setServiceTotals,
+    serviceData,
+  } = useQuoteData();
   const formRef = useRef<FormHandles>(null);
 
   const handleUpdate = () => {
-    if (formRef.current) {
+    // CLEANUP SERVICO CUSTO PRAZO E SERVICO SELECIONADO EM OUTRO SERVICE OPTIONS
+    if (formRef.current && serviceData) {
+      // CLEANUP
+      setServiceTotals({ totalCost: undefined, totalTime: undefined });
+
       const formData: SubmittedData = formRef.current.getData();
-      setServiceData(formData);
+      setServiceData({ ...serviceData, service: formData.service });
+      const updatedService = allServices[formData.service];
+      updatedService?.forEach((value) => value.isSelected = false);
+      setCurrentService(updatedService);
     }
   };
 
   const handleSubmit = (data: SubmittedData) => {
-    setServiceData(data);
-    const value = calculateCost({
-      languageGroup: 1,
-      numberOfWords: data.numberOfWords,
-      serviceName: data.service,
-    });
-    setTotalCost(value);
+    // eslint-disable-next-line no-console
+    console.log(data);
   };
 
   return (
     <FormContainer isVisible={isVisible}>
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="numberOfWords" placeholder="Número de palavras" type="number" onChange={handleUpdate} />
 
         <Select name="service" onChange={handleUpdate}>
           <option value="">Selecione o serviço</option>
-          <option value="humanTranslation">Tradução</option>
-          <option value="simpleRevision">Revisão</option>
-          {/* <option value="legenda">Legenda</option> */}
-          {/* <option value="transcricao">Transcrição</option> */}
-          {/* <option value="traducao-juramentada">Tradução Juramentada</option> */}
+          <option value="traducao">Traduçao</option>
+          <option value="revisao">Revisão</option>
+          <option value="legenda">Legenda</option>
+          <option value="transcricao">Transcrição</option>
+          <option value="traducao-juramentada">Tradução Juramentada</option>
         </Select>
 
-        <Select name="languageMatrix" onChange={handleUpdate}>
-          <option value="">Lingua fonte</option>
-          <option value="Português">Português</option>
-          <option value="Inglês">Inglês</option>
-        </Select>
-
-        <Select name="languageFinal" onChange={handleUpdate}>
-          <option value="">Lingua final</option>
-          <option value="Português">Português</option>
-          <option value="Inglês">Inglês</option>
-        </Select>
-
-        <SectionButton type="submit">Calcular Custo</SectionButton>
+        {/* <SectionButton type="submit">Calcular Custo</SectionButton> */}
       </Form>
+
+      {currentService && (
+        <ServiceOptions
+          key={currentService[0].value}
+          options={currentService}
+        />
+      )}
+
     </FormContainer>
   );
 };

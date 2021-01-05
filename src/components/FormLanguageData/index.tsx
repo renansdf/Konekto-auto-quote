@@ -23,7 +23,9 @@ const FormLanguageData: React.FC<IServiceFormProps> = ({ isVisible, toggleVisibi
 
   const handleUpdate = () => {
     if (formRef.current) {
-      const formData: SubmittedData = formRef.current.getData();
+      type NewType = SubmittedData;
+
+      const formData: NewType = formRef.current.getData();
       setServiceData({ ...formData, service: '' });
     }
   };

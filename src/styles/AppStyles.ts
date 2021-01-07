@@ -36,8 +36,7 @@ export const FormContainer = styled.section<FormContainerProps>`
 
 export const SectionButton = styled.button`
   width: 100%;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 9px 20px 8px;
   border-style: solid;
   border-width: 2px;
   border-color: #fff;
@@ -45,12 +44,27 @@ export const SectionButton = styled.button`
   background-color: transparent;
   color: #fff;
   font-size: 16px;
-  line-height: 1.2em;
+  line-height: 1.4em;
   letter-spacing: 2px;
-  text-transform: uppercase;
   cursor: pointer;
 
   &:focus{
     outline:none;
   }
+`;
+
+export const GoBackButton = styled.button`
+  align-self: flex-start;
+  margin-bottom: 15px;
+  background: #fff;
+  padding: 11px 20px 10px;
+  border: none;
+  color: #15008a;
+  border-radius: 30px;
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  outline: none;
+  cursor: pointer;
 `;

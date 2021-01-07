@@ -23,7 +23,8 @@ interface IServiceData {
   service: string;
   languageMatrix: string;
   languageFinal: string;
-  numberOfWords: number;
+  numberOfWords?: number;
+  totalMinutes?: number;
 }
 
 interface IServiceTotals {

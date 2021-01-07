@@ -21,6 +21,13 @@ const Sidebar: React.FC = () => {
             </div>
           )}
 
+          {serviceData.totalMinutes && (
+            <div>
+              <span>minutos</span>
+              <strong>{formatNumber(serviceData.totalMinutes)}</strong>
+            </div>
+          )}
+
           {serviceData.languageMatrix && (
             <div>
               <span>lingua fonte</span>

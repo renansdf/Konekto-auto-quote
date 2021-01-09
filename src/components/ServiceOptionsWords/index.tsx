@@ -31,7 +31,7 @@ const ServiceOptionsWords: React.FC<IServiceOptions> = ({ options }) => {
 
       if (serviceData && serviceData.numberOfWords) {
         const [value, time] = calculateWordCost({
-          languageGroup: 1,
+          languageGroup: serviceData.languageGroup,
           numberOfWords: serviceData.numberOfWords,
           serviceName: updatedOptions[selected].value,
         });

@@ -31,7 +31,7 @@ const ServiceOptionsMinutes: React.FC<IServiceOptions> = ({ options }) => {
 
       if (serviceData && serviceData.totalMinutes) {
         const [value, time] = calculateMinuteCost({
-          languageGroup: 1,
+          languageGroup: serviceData.languageGroup,
           totalMinutes: serviceData.totalMinutes,
           serviceName: updatedOptions[selected].value,
         });

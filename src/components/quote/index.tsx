@@ -59,6 +59,7 @@ const Quote: React.FC = () => {
           isVisible={!!personalVisibility}
           backToWords={() => hideAndShow(setPersonalVisibility, setServiceWordsVisibility)}
           backToMinutes={() => hideAndShow(setPersonalVisibility, setServiceMinutesVisibility)}
+          backToBegining={() => hideAndShow(setPersonalVisibility, setFormGroupVisibility)}
         />
       </section>
     </Container>

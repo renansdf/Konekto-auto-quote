@@ -83,7 +83,7 @@ const FormServiceData: React.FC<IServiceFormProps> = ({
 
         <Select name="service" onChange={handleUpdate}>
           <option value="">Selecione o serviço</option>
-          <option value="traducao">Traduçao</option>
+          <option value="traducao">Tradução</option>
           <option value="revisao">Revisão</option>
           <option value="traducao-juramentada">Tradução Juramentada</option>
         </Select>

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Form } from '@unform/web';
 import Input from '../Input';
-import { FormContainer, GoBackButton, SectionButton } from '../../styles/AppStyles';
+import { FormContainer, GoBackButton } from '../../styles/AppStyles';
 import { useQuoteData } from '../../hooks/quoteData';
 
 interface IPersonalFormProps {
   isVisible: boolean;
   backToWords: () => void;
   backToMinutes: () => void;
+  backToBegining: () => void;
 }
 
 interface SubmittedData {
@@ -18,13 +19,14 @@ interface SubmittedData {
   cnpjcpf: string;
 }
 
-const wordServices = ['Machine Translation', 'Human Translation', 'Technical Translation', 'Simple Revision', 'Technical Revision'];
-const minuteServices = ['Machine Transcription', 'Human Transcription', 'Caption File', 'Caption Hardcoded', 'Caption Bonus'];
+const wordServices = ['traducao', 'revisao', 'Machine Translation', 'Human Translation', 'Technical Translation', 'Simple Revision', 'Technical Revision'];
+const minuteServices = ['legenda', 'transcricao', 'Machine Transcription', 'Human Transcription', 'Caption File', 'Caption Hardcoded', 'Caption Bonus'];
 
 const FormPersonalData: React.FC<IPersonalFormProps> = ({
   isVisible,
   backToWords,
   backToMinutes,
+  backToBegining,
 }) => {
   const { setPersonalData, serviceData } = useQuoteData();
 
@@ -35,11 +37,15 @@ const FormPersonalData: React.FC<IPersonalFormProps> = ({
   const handleGoBack = () => {
     if (serviceData && wordServices.includes(serviceData.service)) {
       backToWords();
+      return;
     }
 
     if (serviceData && minuteServices.includes(serviceData.service)) {
       backToMinutes();
+      return;
     }
+
+    backToBegining();
   };
 
   return (

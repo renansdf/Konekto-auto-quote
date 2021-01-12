@@ -34,7 +34,11 @@ export const FormContainer = styled.section<FormContainerProps>`
   `}
 `;
 
-export const SectionButton = styled.button`
+interface ISectionButtonProps {
+  isActive?: boolean;
+}
+
+export const SectionButton = styled.button<ISectionButtonProps>`
   width: 100%;
   padding: 9px 20px 8px;
   border-style: solid;
@@ -48,9 +52,15 @@ export const SectionButton = styled.button`
   letter-spacing: 2px;
   cursor: pointer;
 
+  opacity: .4;
+
   &:focus{
     outline:none;
   }
+
+  ${(props) => props.isActive && css`
+    opacity: 1;
+  `}
 `;
 
 export const GoBackButton = styled.button`

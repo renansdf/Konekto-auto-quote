@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { QuoteProvider } from './hooks/quoteData';
+import AppProvider from './hooks/appProvider';
 import GlobalStyle from './styles/GlobalStyles';
 
 ReactDOM.render(
   <React.StrictMode>
-    <QuoteProvider>
+    <AppProvider>
       <App />
-    </QuoteProvider>
+    </AppProvider>
     <GlobalStyle />
   </React.StrictMode>,
   document.getElementById('root'),

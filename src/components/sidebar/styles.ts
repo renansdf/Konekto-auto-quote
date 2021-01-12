@@ -18,6 +18,10 @@ export const QuotedServices = styled.div`
   div + div{
     border-top: 1px solid #ff8c8c;
   }
+
+  strong{
+    text-align: right;
+  }
 `;
 
 export const QuoteCalculator = styled.div`

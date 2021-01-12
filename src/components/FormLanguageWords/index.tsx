@@ -1,12 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
+import * as yup from 'yup';
+
+import { useQuoteData } from '../../hooks/quoteData';
+import allLanguages from '../../helpers/languages';
+import { useToast } from '../../hooks/toast';
+
 import Input from '../Input';
 import Select from '../Select';
 import { FormContainer, SectionButton, GoBackButton } from '../../styles/AppStyles';
-import { useQuoteData } from '../../hooks/quoteData';
-
-import allLanguages from '../../helpers/languages';
 
 interface IServiceFormProps {
   isVisible: boolean;
@@ -17,7 +21,6 @@ interface IServiceFormProps {
 interface IFormData {
   languageMatrix: string;
   languageFinal: string;
-  languageGroup: number;
   numberOfWords: number;
 }
 
@@ -27,11 +30,14 @@ const FormLanguageWords: React.FC<IServiceFormProps> = ({
   goBackButton,
 }) => {
   const { setServiceData, serviceData } = useQuoteData();
+  const { addToast } = useToast();
   const formRef = useRef<FormHandles>(null);
+
+  const [buttonActive, setButtonActive] = useState(false);
 
   const handleUpdate = () => {
     if (formRef.current) {
-      const formData: IFormData = formRef.current.getData();
+      const formData = (formRef.current.getData() as IFormData);
 
       const matrixData = formData.languageMatrix.split(',');
       const matrixNumber = Number(matrixData[0]);
@@ -55,10 +61,22 @@ const FormLanguageWords: React.FC<IServiceFormProps> = ({
         languageGroup: selectedGroup,
         service: '',
       });
+
+      const schema = yup.object().shape({
+        numberOfWords: yup.number().required(),
+        languageMatrix: yup.string().required(),
+        languageFinal: yup.string().required(),
+      });
+
+      schema.validate(formData).then((response) => {
+        if (response) {
+          setButtonActive(true);
+        }
+      });
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (data: IFormData) => {
     if (serviceData) {
       if (serviceData.service) {
         setServiceData({ ...serviceData, service: serviceData.service });
@@ -66,7 +84,22 @@ const FormLanguageWords: React.FC<IServiceFormProps> = ({
         setServiceData({ ...serviceData, service: '' });
       }
     }
-    toggleVisibility();
+    try {
+      const schema = yup.object().shape({
+        numberOfWords: yup.number().required(),
+        languageMatrix: yup.string().required(),
+        languageFinal: yup.string().required(),
+      });
+
+      await schema.validate(data);
+      toggleVisibility();
+    } catch (err) {
+      addToast({
+        title: 'ocorreu um erro',
+        message: 'Preencha todos os campos para continuar',
+        type: 'error',
+      });
+    }
   };
 
   return (
@@ -99,7 +132,7 @@ const FormLanguageWords: React.FC<IServiceFormProps> = ({
           ))}
         </Select>
 
-        <SectionButton type="submit">Selecione os detalhes do serviço</SectionButton>
+        <SectionButton type="submit" isActive={!!buttonActive}>Selecione os detalhes do serviço</SectionButton>
       </Form>
     </FormContainer>
   );

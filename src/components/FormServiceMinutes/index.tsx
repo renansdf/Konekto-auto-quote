@@ -61,7 +61,7 @@ const FormServiceData: React.FC<IServiceFormProps> = ({
     if (formRef.current && serviceData) {
       setServiceTotals({ totalCost: undefined, totalTime: undefined });
 
-      const formData: SubmittedData = formRef.current.getData();
+      const formData = (formRef.current.getData() as SubmittedData);
       setServiceData({ ...serviceData, service: formData.service });
       const updatedService = allServices[formData.service];
       updatedService?.forEach((value) => value.isSelected = false);
@@ -69,7 +69,7 @@ const FormServiceData: React.FC<IServiceFormProps> = ({
     }
   };
 
-  const handleSubmit = () => { };
+  const handleSubmit = () => toggleVisibility();
 
   const handleGoBack = () => {
     handleUpdate();
@@ -87,16 +87,15 @@ const FormServiceData: React.FC<IServiceFormProps> = ({
           <option value="transcricao">Transcrição</option>
         </Select>
 
+        {currentService && (
+          <ServiceOptionsMinutes
+            key={currentService[0].value}
+            options={currentService}
+          />
+        )}
+
+        <SectionButton type="submit">continuar para dados pessoais</SectionButton>
       </Form>
-
-      {currentService && (
-        <ServiceOptionsMinutes
-          key={currentService[0].value}
-          options={currentService}
-        />
-      )}
-
-      <SectionButton type="button" onClick={toggleVisibility}>continuar para dados pessoais</SectionButton>
 
     </FormContainer>
   );

@@ -1,10 +1,23 @@
 import styled, { css } from 'styled-components';
+import BGBody from '../images/bg-body.png';
 
 export const Container = styled.div`
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-image: url(${BGBody});
+  background-size: 100%;
+  background-repeat: repeat-y;
+  background-position: 0 0;
+`;
+
+export const Content = styled.div`
   width: 90%;
   max-width: 1000px;
-  margin: 0 auto;
+  display: flex;
+  padding: 60px 0;
 `;
 
 interface FormContainerProps {
@@ -17,12 +30,11 @@ export const FormContainer = styled.section<FormContainerProps>`
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(123deg,#15008a,#5347d5);
-  box-shadow: 0 6px 30px -12px #15008a;
+  background: #000;
+  box-shadow: 0 6px 30px -12px #000;
 
   padding: 50px;
-  border-radius: 30px;
-
+  border-radius: 3px;
   width: 100%;
 
   form{
@@ -44,7 +56,6 @@ export const SectionButton = styled.button<ISectionButtonProps>`
   border-style: solid;
   border-width: 2px;
   border-color: #fff;
-  border-radius: 50px;
   background-color: transparent;
   color: #fff;
   font-size: 16px;
@@ -69,8 +80,7 @@ export const GoBackButton = styled.button`
   background: #fff;
   padding: 11px 20px 10px;
   border: none;
-  color: #15008a;
-  border-radius: 30px;
+  color: #000;
   text-transform: uppercase;
   font-size: 9px;
   letter-spacing: 2px;

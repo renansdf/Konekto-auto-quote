@@ -6,18 +6,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body{
-    background: #f5f4ff;
-    font-family: 'Mulish';
-    color: #483cc9;
+    background: #fff;
+    font-family: 'Roboto';
+    color: #000;
     letter-spacing: 1px;
 
     margin: 0px;
   }
 
   h1, h2, h3, h4, h5, h6{
-    font-family: 'Castoro';
-    font-style: italic;
-    font-weight: 400;
+    font-weight: 900;
     margin: 0px 0 20px;
   }
 `;

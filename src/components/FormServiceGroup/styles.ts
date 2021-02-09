@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const Button = styled.button`
   background: transparent;
   border: 2px solid #fff;
-  border-radius: 20px;
+  border-radius: 12px;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@ export const Button = styled.button`
 
   &:hover{
     background: #fff;
-    color: #5347d5;
+    color: #000;
     box-shadow: 0px 6px 20px -10px #0d0053;
   }
 `;

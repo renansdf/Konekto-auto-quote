@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  background: linear-gradient(123deg,#15008a,#5347d5);
+  background: #000;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
   padding: 30px 0 60px;
-  margin: 50px 0 0 0;
+  margin: 0;
 
   h2{
     color: #fff;

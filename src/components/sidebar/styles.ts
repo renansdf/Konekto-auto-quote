@@ -6,8 +6,8 @@ export const Container = styled.div`
 `;
 
 export const QuotedServices = styled.div`
-  border-top: 1px solid #15008a;
-  border-bottom: 1px solid #15008a;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
 
   div{
     display: flex;
@@ -16,7 +16,7 @@ export const QuotedServices = styled.div`
   }
 
   div + div{
-    border-top: 1px solid #ff8c8c;
+    border-top: 1px solid #000;
   }
 
   strong{

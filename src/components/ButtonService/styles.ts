@@ -13,7 +13,7 @@ export const Container = styled.button<IContainerAttr>`
   padding: 25px 10px;
   font-size: 13px;
   letter-spacing: 1px;
-  border-radius: 20px;
+  border-radius: 12px;
   margin: 0 5px;
 
   transition: all .2s;
@@ -30,7 +30,7 @@ export const Container = styled.button<IContainerAttr>`
 
   ${(props) => props.isSelected && css`
     background: #fff;
-    color: #5347d5;
+    color: #000;
     box-shadow: 0px 6px 20px -10px #0d0053;
   `}
 `;

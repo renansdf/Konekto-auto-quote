@@ -15,9 +15,11 @@ interface IOptionStructure {
 
 interface IServiceOptions {
   options: IOptionStructure[];
+  // eslint-disable-next-line no-unused-vars
+  activateButton: (b: boolean) => void;
 }
 
-const ServiceOptionsMinutes: React.FC<IServiceOptions> = ({ options }) => {
+const ServiceOptionsMinutes: React.FC<IServiceOptions> = ({ options, activateButton }) => {
   const [componentOptions, setOptions] = useState<IOptionStructure[]>(options);
   const { setServiceData, setServiceTotals, serviceData } = useQuoteData();
 
@@ -37,6 +39,7 @@ const ServiceOptionsMinutes: React.FC<IServiceOptions> = ({ options }) => {
         });
         setServiceData({ ...serviceData, service: updatedOptions[selected].name });
         setServiceTotals({ totalCost: value, totalTime: time });
+        activateButton(true);
       }
     }
   }

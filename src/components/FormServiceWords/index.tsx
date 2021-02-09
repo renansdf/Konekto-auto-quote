@@ -1,8 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
-import React, {
-  ChangeEvent, useEffect, useRef, useState,
-} from 'react';
+import React, { useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import Select from '../Select';

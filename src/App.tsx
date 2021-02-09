@@ -5,14 +5,16 @@ import Footer from './components/footer';
 import Quote from './components/quote';
 import Sidebar from './components/sidebar';
 
-import { Container } from './styles/AppStyles';
+import { Container, Content } from './styles/AppStyles';
 
 const App: React.FC = () => (
   <>
     <Header />
     <Container>
-      <Quote />
-      <Sidebar />
+      <Content>
+        <Quote />
+        <Sidebar />
+      </Content>
     </Container>
     <Footer />
   </>

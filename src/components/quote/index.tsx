@@ -22,8 +22,7 @@ const Quote: React.FC = () => {
   return (
     <Container>
       <section>
-        <h1>Solicitar Orçamento</h1>
-        <p>Preencha o formulário abaixo para solicitar um orçamento</p>
+        <h1>Orçamento Instantâneo</h1>
 
         <FormServiceGroup
           isVisible={!!serviceGroupVisibility}

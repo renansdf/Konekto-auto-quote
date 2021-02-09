@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 60%;
-  min-height: 100vh;
+  min-height: 400px;
 
   display: flex;
   align-items: flex-start;
@@ -14,8 +14,7 @@ export const Container = styled.div`
   }
 
   h1{
-    text-align: center;
-    margin: 0px;
+    font-size: 32px;
   }
 
   p{
@@ -24,9 +23,6 @@ export const Container = styled.div`
     margin: 0 auto 20px;
   }
 
-  section + section{
-    margin-top: 40px;
-  }
 `;
 
 export const FormSection = styled.section`

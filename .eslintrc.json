@@ -29,7 +29,8 @@
     "react/jsx-props-no-spreading": "off",
     "no-unused-vars": "warn",
     "import/no-cycle": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "max-len": "off"
   },
   "settings": {
     "import/resolver": {

@@ -4,25 +4,29 @@ import { Container, Button } from './styles';
 
 interface IServiceGroupProps {
   isVisible: boolean;
-  showWords: () => void;
-  showMinutes: () => void;
+  showTranslation: () => void;
+  showRevision: () => void;
+  showTimebased: () => void;
 }
 
 const FormServiceGroup: React.FC<IServiceGroupProps> = ({
   isVisible,
-  showWords,
-  showMinutes,
+  showTranslation,
+  showRevision,
+  showTimebased,
 }) => (
   <FormContainer isVisible={isVisible}>
     <Container>
-      <Button type="button" onClick={showWords}>
-        Tradução e revisão
-        <span>de documentos e livros</span>
+      <Button type="button" onClick={showTranslation}>
+        Tradução
       </Button>
 
-      <Button type="button" onClick={showMinutes}>
+      <Button type="button" onClick={showRevision}>
+        Revisão
+      </Button>
+
+      <Button type="button" onClick={showTimebased}>
         Legenda e Transcrição
-        <span>de filmes</span>
       </Button>
     </Container>
   </FormContainer>

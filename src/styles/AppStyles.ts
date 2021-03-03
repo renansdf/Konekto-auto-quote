@@ -18,6 +18,7 @@ export const Content = styled.div`
   max-width: 1000px;
   display: flex;
   padding: 60px 0;
+  flex-direction: column;
 `;
 
 interface FormContainerProps {
@@ -30,7 +31,7 @@ export const FormContainer = styled.section<FormContainerProps>`
   align-items: center;
   justify-content: center;
 
-  background: #000;
+  background: #489ec7;
   box-shadow: 0 6px 30px -12px #000;
 
   padding: 50px;

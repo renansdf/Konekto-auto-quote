@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 60%;
-  min-height: 400px;
+  width: 100%;
+  margin-bottom: 50px;
 
   display: flex;
   align-items: flex-start;
@@ -10,7 +10,6 @@ export const Container = styled.div`
 
   section{
     width: 100%;
-    max-width: 500px;
   }
 
   h1{

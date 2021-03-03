@@ -2,8 +2,8 @@ import React from 'react';
 import Header from './components/header';
 import Footer from './components/footer';
 
-import Quote from './components/quote';
-import Sidebar from './components/sidebar';
+import Quote from './pages/quote';
+import Sidebar from './pages/sidebar';
 
 import { Container, Content } from './styles/AppStyles';
 

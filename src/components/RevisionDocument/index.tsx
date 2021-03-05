@@ -9,7 +9,7 @@ import allLanguages from '../../helpers/languages';
 
 import Input from '../Input';
 import Select from '../Select';
-import RevisionProducts from '../RevisionProducts';
+import TextbasedProducts from '../TextbasedProducts';
 import { FormContainer, SectionButton, GoBackButton } from '../../styles/AppStyles';
 import { Container } from './styles';
 
@@ -25,34 +25,19 @@ interface IFormData {
   numberOfWords: number;
 }
 
-export interface IRevisionServices {
-  [key: string]: {
-    name: string;
-    value: 'simpleRevision' | 'technicalRevision';
-    isSelected?: boolean;
-  }[];
-}
-
-const RevisionServices: IRevisionServices = {
-  revisao: [
-    { name: 'Simple Revision', value: 'simpleRevision' },
-    { name: 'Technical Revision', value: 'technicalRevision' },
-  ],
-};
-
 const RevisionDocument: React.FC<IServiceFormProps> = ({
   isVisible,
   toggleVisibility,
   goBackButton,
 }) => {
-  const { setServiceData, setServiceTotals } = useQuoteData();
+  const { serviceData, setServiceData, setServiceTotals } = useQuoteData();
   const formRef = useRef<FormHandles>(null);
 
   const [buttonActive, setButtonActive] = useState(false);
   const [servicesActive, setServicesActive] = useState(false);
 
   const handleUpdate = () => {
-    if (formRef.current) {
+    if (formRef.current && serviceData) {
       const formData = (formRef.current.getData() as IFormData);
 
       const matrixData = formData.languageMatrix.split(',');
@@ -75,6 +60,7 @@ const RevisionDocument: React.FC<IServiceFormProps> = ({
         languageMatrix: matrixLanguage,
         numberOfWords: formData.numberOfWords,
         languageGroup: selectedGroup,
+        selectedService: serviceData.selectedService,
         service: '',
       });
 
@@ -153,8 +139,7 @@ const RevisionDocument: React.FC<IServiceFormProps> = ({
         </Container>
 
         {servicesActive && (
-          <RevisionProducts
-            options={RevisionServices}
+          <TextbasedProducts
             whenSelected={() => setButtonActive(true)}
           />
         )}

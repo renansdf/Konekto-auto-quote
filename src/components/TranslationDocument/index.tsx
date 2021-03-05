@@ -6,10 +6,10 @@ import * as yup from 'yup';
 
 import { useQuoteData } from '../../hooks/quoteData';
 import allLanguages from '../../helpers/languages';
+import TextbasedProducts from '../TextbasedProducts';
 
 import Input from '../Input';
 import Select from '../Select';
-import TranslationProducts from '../TranslationProducts';
 import { FormContainer, SectionButton, GoBackButton } from '../../styles/AppStyles';
 import { Container } from './styles';
 
@@ -25,39 +25,19 @@ interface IFormData {
   numberOfWords: number;
 }
 
-export interface ITranslationServices {
-  [key: string]: {
-    name: string;
-    value: 'machineTranslation' | 'humanTranslation' | 'technicalTranslation';
-    isSelected?: boolean;
-  }[];
-}
-
-const TranslationServices: ITranslationServices = {
-  translationGroupBasic: [
-    { name: 'Machine Translation', value: 'machineTranslation' },
-    { name: 'Human Translation', value: 'humanTranslation' },
-    { name: 'Technical Translation', value: 'technicalTranslation' },
-  ],
-  translationGroupAlternative: [
-    { name: 'Human Translation', value: 'humanTranslation' },
-    { name: 'Technical Translation', value: 'technicalTranslation' },
-  ],
-};
-
 const TranslationDocument: React.FC<IServiceFormProps> = ({
   isVisible,
   toggleVisibility,
   goBackButton,
 }) => {
-  const { setServiceData, setServiceTotals } = useQuoteData();
+  const { serviceData, setServiceData, setServiceTotals } = useQuoteData();
   const formRef = useRef<FormHandles>(null);
 
   const [buttonActive, setButtonActive] = useState(false);
   const [servicesActive, setServicesActive] = useState(false);
 
   const handleUpdate = () => {
-    if (formRef.current) {
+    if (formRef.current && serviceData) {
       const formData = (formRef.current.getData() as IFormData);
 
       const matrixData = formData.languageMatrix.split(',');
@@ -80,6 +60,7 @@ const TranslationDocument: React.FC<IServiceFormProps> = ({
         languageMatrix: matrixLanguage,
         numberOfWords: formData.numberOfWords,
         languageGroup: selectedGroup,
+        selectedService: serviceData.selectedService,
         service: '',
       });
 
@@ -158,8 +139,7 @@ const TranslationDocument: React.FC<IServiceFormProps> = ({
         </Container>
 
         {servicesActive && (
-          <TranslationProducts
-            options={TranslationServices}
+          <TextbasedProducts
             whenSelected={() => setButtonActive(true)}
           />
         )}

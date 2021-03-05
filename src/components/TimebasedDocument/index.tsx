@@ -33,31 +33,19 @@ export interface ITimebasedServices {
   }[];
 }
 
-const TimebasedServices: ITimebasedServices = {
-  transcricao: [
-    { name: 'Machine Transcription', value: 'machineTranscription' },
-    { name: 'Human Transcription', value: 'humanTranscription' },
-  ],
-  legenda: [
-    { name: 'Caption File', value: 'captionFile' },
-    { name: 'Caption Hardcoded', value: 'captionHardcoded' },
-    { name: 'Caption Bonus', value: 'captionBonus' },
-  ],
-};
-
 const TimebasedDocument: React.FC<IServiceFormProps> = ({
   isVisible,
   toggleVisibility,
   goBackButton,
 }) => {
-  const { setServiceData, setServiceTotals } = useQuoteData();
+  const { setServiceData, setServiceTotals, serviceData } = useQuoteData();
   const formRef = useRef<FormHandles>(null);
 
   const [buttonActive, setButtonActive] = useState(false);
   const [servicesActive, setServicesActive] = useState(false);
 
   const handleUpdate = () => {
-    if (formRef.current) {
+    if (formRef.current && serviceData) {
       const formData = (formRef.current.getData() as IFormData);
 
       const matrixData = formData.languageMatrix.split(',');
@@ -80,6 +68,7 @@ const TimebasedDocument: React.FC<IServiceFormProps> = ({
         languageMatrix: matrixLanguage,
         totalMinutes: formData.totalMinutes,
         languageGroup: selectedGroup,
+        selectedService: serviceData.selectedService,
         service: '',
       });
 
@@ -159,7 +148,6 @@ const TimebasedDocument: React.FC<IServiceFormProps> = ({
 
         {servicesActive && (
           <TimebasedProducts
-            options={TimebasedServices}
             whenSelected={() => setButtonActive(true)}
           />
         )}

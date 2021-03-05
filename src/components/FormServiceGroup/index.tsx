@@ -1,4 +1,5 @@
 import React from 'react';
+import { useQuoteData } from '../../hooks/quoteData';
 import { FormContainer } from '../../styles/AppStyles';
 import { Container, Button } from './styles';
 
@@ -14,22 +15,35 @@ const FormServiceGroup: React.FC<IServiceGroupProps> = ({
   showTranslation,
   showRevision,
   showTimebased,
-}) => (
-  <FormContainer isVisible={isVisible}>
-    <Container>
-      <Button type="button" onClick={showTranslation}>
-        Tradução
-      </Button>
+}) => {
+  const { serviceData, setServiceData } = useQuoteData();
 
-      <Button type="button" onClick={showRevision}>
-        Revisão
-      </Button>
+  const handleSelectService = (serviceName: string, run: Function) => {
+    setServiceData({ ...serviceData, selectedService: serviceName });
+    run();
+  };
 
-      <Button type="button" onClick={showTimebased}>
-        Legenda e Transcrição
-      </Button>
-    </Container>
-  </FormContainer>
-);
+  return (
+    <FormContainer isVisible={isVisible}>
+      <Container>
+        <Button type="button" onClick={() => handleSelectService('translation', showTranslation)}>
+          Tradução
+        </Button>
+
+        <Button type="button" onClick={() => handleSelectService('revision', showRevision)}>
+          Revisão
+        </Button>
+
+        <Button type="button" onClick={() => handleSelectService('subtitling', showTimebased)}>
+          Legenda
+        </Button>
+
+        <Button type="button" onClick={() => handleSelectService('transcription', showTimebased)}>
+          Transcrição
+        </Button>
+      </Container>
+    </FormContainer>
+  );
+};
 
 export default FormServiceGroup;

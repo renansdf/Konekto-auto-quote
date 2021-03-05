@@ -10,8 +10,9 @@ import { ButtonsContainer, DownloadPdf } from './styles';
 
 interface IPersonalFormProps {
   isVisible: boolean;
-  backToWords: () => void;
-  backToMinutes: () => void;
+  backToTranslation: () => void;
+  backToRevision: () => void;
+  backToTimebased: () => void;
   backToBegining: () => void;
 }
 
@@ -23,13 +24,11 @@ interface SubmittedData {
   cnpjcpf: string;
 }
 
-const wordServices = ['traducao', 'revisao', 'Machine Translation', 'Human Translation', 'Technical Translation', 'Simple Revision', 'Technical Revision'];
-const minuteServices = ['legenda', 'transcricao', 'Machine Transcription', 'Human Transcription', 'Caption File', 'Caption Hardcoded', 'Caption Bonus'];
-
 const FormPersonalData: React.FC<IPersonalFormProps> = ({
   isVisible,
-  backToWords,
-  backToMinutes,
+  backToTranslation,
+  backToRevision,
+  backToTimebased,
   backToBegining,
 }) => {
   const { setPersonalData, serviceData } = useQuoteData();
@@ -41,13 +40,18 @@ const FormPersonalData: React.FC<IPersonalFormProps> = ({
   };
 
   const handleGoBack = () => {
-    if (serviceData && wordServices.includes(serviceData.service)) {
-      backToWords();
+    if (serviceData?.selectedService === 'translation') {
+      backToTranslation();
       return;
     }
 
-    if (serviceData && minuteServices.includes(serviceData.service)) {
-      backToMinutes();
+    if (serviceData?.selectedService === 'revision') {
+      backToRevision();
+      return;
+    }
+
+    if (serviceData?.selectedService === 'subtitling' || serviceData?.selectedService === 'transcription') {
+      backToTimebased();
       return;
     }
 

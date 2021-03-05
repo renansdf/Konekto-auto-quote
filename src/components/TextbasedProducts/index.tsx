@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { formatCurrency } from '../../helpers/numberFormat';
-import { calculateMinuteCost } from '../../helpers/quoteHelper';
+import { calculateWordCost } from '../../helpers/quoteHelper';
+import { TextbasedServices } from '../../helpers/services';
 import { useQuoteData } from '../../hooks/quoteData';
-import { TimebasedServices } from '../../helpers/services';
 
 import { Container, ProductCard } from './styles';
 
@@ -17,19 +17,31 @@ interface IProductCards {
   isSelected: boolean;
 }
 
-const TimebasedProducts: React.FC<IComponentProps> = ({
+const TextbasedProducts: React.FC<IComponentProps> = ({
   whenSelected,
 }) => {
   const { serviceData, setServiceData, setServiceTotals } = useQuoteData();
   const [productCards, setProductCards] = useState<IProductCards[]>();
 
-  function generateProductCards(totalMinutes: number, languageGroup: number) {
+  function generateProductCards(numberOfWords: number, languageGroup: number) {
+    let options;
     if (serviceData && serviceData.selectedService) {
-      const options = TimebasedServices[serviceData.selectedService];
-      const parsedOptions = options.map((option) => {
-        const [value, time] = calculateMinuteCost({
+      if (serviceData.selectedService === 'translation') {
+        if (languageGroup < 2) {
+          options = TextbasedServices.translationBasic;
+        } else {
+          options = TextbasedServices.translationAdvanced;
+        }
+      }
+
+      if (serviceData.selectedService === 'revision') {
+        options = TextbasedServices.revision;
+      }
+
+      const parsedOptions = options?.map((option) => {
+        const [value, time] = calculateWordCost({
           languageGroup,
-          totalMinutes,
+          numberOfWords,
           serviceName: option.value,
         });
         return {
@@ -68,12 +80,12 @@ const TimebasedProducts: React.FC<IComponentProps> = ({
   }, [productCards, serviceData]);
 
   useEffect(() => {
-    if (serviceData && serviceData.totalMinutes && serviceData.languageGroup) {
-      generateProductCards(serviceData.totalMinutes, serviceData.languageGroup);
+    if (serviceData && serviceData.numberOfWords && serviceData.languageGroup) {
+      generateProductCards(serviceData.numberOfWords, serviceData.languageGroup);
     } else {
       setProductCards(undefined);
     }
-  }, [serviceData?.languageFinal, serviceData?.languageMatrix, serviceData?.totalMinutes]);
+  }, [serviceData?.languageFinal, serviceData?.languageMatrix, serviceData?.numberOfWords]);
 
   return (
     <Container>
@@ -101,4 +113,4 @@ const TimebasedProducts: React.FC<IComponentProps> = ({
   );
 };
 
-export default TimebasedProducts;
+export default TextbasedProducts;

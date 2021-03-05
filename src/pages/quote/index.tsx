@@ -47,8 +47,9 @@ const Quote: React.FC = () => {
 
         <FormPersonalData
           isVisible={!!personalVisibility}
-          backToWords={() => hideAndShow(setPersonalVisibility, setTranslationDocVisibility)}
-          backToMinutes={() => hideAndShow(setPersonalVisibility, setRevisionVisibility)}
+          backToTranslation={() => hideAndShow(setPersonalVisibility, setTranslationDocVisibility)}
+          backToRevision={() => hideAndShow(setPersonalVisibility, setRevisionVisibility)}
+          backToTimebased={() => hideAndShow(setPersonalVisibility, setTimebasedVisibility)}
           backToBegining={() => hideAndShow(setPersonalVisibility, setFormGroupVisibility)}
         />
       </section>
